@@ -154,10 +154,12 @@
 		}
 
 		.code {
-			font-size: 25px;
+			font-size: 24px;
 			font-weight: 1000;
 			color: #ffd24a;
-			word-break: break-word;
+			letter-spacing: 0;
+			white-space: normal;
+			overflow-wrap: anywhere;
 			margin-bottom: 10px;
 		}
 
@@ -267,6 +269,11 @@
 			.codes-grid {
 				grid-template-columns: 1fr;
 			}
+
+			.code {
+				font-size: 26px;
+				overflow-wrap: normal;
+			}
 		}
 	</style>
 </head>
@@ -277,7 +284,7 @@
 				<div class="kicker">Active Roblox Codes</div>
 				<h1>Nothing Incremental</h1>
 				<p class="subtitle">
-					Use these codes in-game to claim coins and exclusive pets. New codes may appear during updates, events, and milestones.
+					Use these codes in-game to claim coins and Lucky Spins. New codes may appear during updates, events, and milestones.
 				</p>
 			</div>
 
@@ -313,7 +320,7 @@
 				<div>
 					<div class="status">ACTIVE</div>
 					<div class="code">MONEYDRAGON</div>
-					<p class="reward">Reward: Money Dragon Pet</p>
+					<p class="reward">Reward: 5 Lucky Spins</p>
 				</div>
 				<button onclick="copyCode('MONEYDRAGON')">Copy Code</button>
 			</article>
@@ -322,7 +329,7 @@
 				<div>
 					<div class="status">ACTIVE</div>
 					<div class="code">BACKPACK</div>
-					<p class="reward">Reward: Mega Backpack Dragon Pet</p>
+					<p class="reward">Reward: 5 Lucky Spins</p>
 				</div>
 				<button onclick="copyCode('BACKPACK')">Copy Code</button>
 			</article>
@@ -338,7 +345,7 @@
 
 			<div class="step">
 				<div class="step-number">Step 2</div>
-				<p>Click the Codes button on the left side of the screen.</p>
+				<p>Open Settings and scroll down to the Codes section.</p>
 			</div>
 
 			<div class="step">
