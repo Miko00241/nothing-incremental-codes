@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Nothing Incremental Codes</title>
+	<style>
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			min-height: 100vh;
+			font-family: Arial, sans-serif;
+			background:
+				radial-gradient(circle at 20% 10%, rgba(80, 170, 255, 0.28), transparent 28%),
+				radial-gradient(circle at 80% 20%, rgba(255, 190, 45, 0.22), transparent 30%),
+				linear-gradient(135deg, #101014, #181824 55%, #101014);
+			color: white;
+			overflow-x: hidden;
+		}
+
+		.page {
+			width: min(1100px, calc(100% - 32px));
+			margin: 0 auto;
+			padding: 42px 0;
+		}
+
+		.hero {
+			min-height: 260px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 28px;
+			padding: 34px;
+			background: rgba(18, 18, 24, 0.92);
+			border: 2px solid rgba(255, 255, 255, 0.12);
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+		}
+
+		.hero-text {
+			max-width: 620px;
+		}
+
+		.kicker {
+			color: #ffd24a;
+			font-size: 15px;
+			font-weight: 900;
+			text-transform: uppercase;
+			letter-spacing: 0;
+			margin-bottom: 10px;
+		}
+
+		h1 {
+			font-size: clamp(38px, 7vw, 76px);
+			line-height: 0.95;
+			letter-spacing: 0;
+			margin-bottom: 16px;
+		}
+
+		.subtitle {
+			font-size: clamp(16px, 2.5vw, 21px);
+			color: #d8d8e2;
+			line-height: 1.45;
+			max-width: 560px;
+		}
+
+		.visual {
+			width: 210px;
+			height: 210px;
+			position: relative;
+			flex: 0 0 auto;
+		}
+
+		.coin {
+			position: absolute;
+			inset: 26px;
+			border-radius: 50%;
+			background: linear-gradient(145deg, #ffe680, #ffb12e);
+			border: 8px solid #fff0a8;
+			box-shadow: 0 12px 40px rgba(255, 190, 45, 0.36);
+		}
+
+		.coin::after {
+			content: "CODES";
+			position: absolute;
+			inset: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #3a2500;
+			font-size: 24px;
+			font-weight: 1000;
+		}
+
+		.shard {
+			position: absolute;
+			width: 32px;
+			height: 70px;
+			background: linear-gradient(180deg, #7fe4ff, #347dff);
+			transform: skew(-12deg) rotate(18deg);
+			box-shadow: 0 8px 24px rgba(80, 170, 255, 0.32);
+		}
+
+		.shard.one {
+			left: 0;
+			top: 28px;
+		}
+
+		.shard.two {
+			right: 8px;
+			bottom: 18px;
+			background: linear-gradient(180deg, #9cff8f, #22b95d);
+			transform: skew(10deg) rotate(-20deg);
+		}
+
+		.section-title {
+			margin: 34px 0 18px;
+			font-size: 30px;
+			font-weight: 1000;
+		}
+
+		.codes-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 16px;
+		}
+
+		.code-card {
+			background: rgba(28, 28, 38, 0.96);
+			border: 2px solid rgba(255, 255, 255, 0.12);
+			padding: 18px;
+			min-height: 180px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.code-card.special {
+			border-color: #ffd24a;
+			background: linear-gradient(180deg, rgba(80, 55, 20, 0.98), rgba(28, 28, 38, 0.98));
+		}
+
+		.status {
+			width: fit-content;
+			padding: 5px 10px;
+			background: #1fbf68;
+			color: white;
+			font-weight: 900;
+			font-size: 13px;
+			margin-bottom: 12px;
+		}
+
+		.code {
+			font-size: 25px;
+			font-weight: 1000;
+			color: #ffd24a;
+			word-break: break-word;
+			margin-bottom: 10px;
+		}
+
+		.reward {
+			color: #d9d9e4;
+			font-size: 16px;
+			line-height: 1.35;
+			margin-bottom: 18px;
+		}
+
+		button {
+			border: 0;
+			background: #149dff;
+			color: white;
+			font-size: 16px;
+			font-weight: 1000;
+			padding: 12px 14px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			filter: brightness(1.12);
+		}
+
+		.how {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 16px;
+			margin-top: 16px;
+		}
+
+		.step {
+			background: rgba(28, 28, 38, 0.96);
+			border: 2px solid rgba(255, 255, 255, 0.12);
+			padding: 18px;
+			min-height: 120px;
+		}
+
+		.step-number {
+			color: #ffd24a;
+			font-size: 18px;
+			font-weight: 1000;
+			margin-bottom: 8px;
+		}
+
+		.step p {
+			color: #d8d8e2;
+			line-height: 1.4;
+		}
+
+		.toast {
+			position: fixed;
+			left: 50%;
+			bottom: 28px;
+			transform: translateX(-50%) translateY(20px);
+			background: #1fbf68;
+			color: white;
+			font-weight: 1000;
+			padding: 14px 22px;
+			opacity: 0;
+			pointer-events: none;
+			transition: 0.2s ease;
+		}
+
+		.toast.show {
+			opacity: 1;
+			transform: translateX(-50%) translateY(0);
+		}
+
+		.footer {
+			margin-top: 36px;
+			color: #a8a8b8;
+			text-align: center;
+			font-size: 14px;
+		}
+
+		@media (max-width: 900px) {
+			.hero {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			.codes-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.how {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media (max-width: 520px) {
+			.page {
+				width: min(100% - 20px, 1100px);
+				padding: 20px 0;
+			}
+
+			.hero {
+				padding: 22px;
+			}
+
+			.visual {
+				width: 160px;
+				height: 160px;
+			}
+
+			.codes-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</head>
+<body>
+	<main class="page">
+		<section class="hero">
+			<div class="hero-text">
+				<div class="kicker">Active Roblox Codes</div>
+				<h1>Nothing Incremental</h1>
+				<p class="subtitle">
+					Use these codes in-game to claim coins and exclusive pets. New codes may appear during updates, events, and milestones.
+				</p>
+			</div>
+
+			<div class="visual" aria-hidden="true">
+				<div class="shard one"></div>
+				<div class="coin"></div>
+				<div class="shard two"></div>
+			</div>
+		</section>
+
+		<h2 class="section-title">Active Codes</h2>
+
+		<section class="codes-grid">
+			<article class="code-card">
+				<div>
+					<div class="status">ACTIVE</div>
+					<div class="code">RELEASE</div>
+					<p class="reward">Reward: 500 Coins</p>
+				</div>
+				<button onclick="copyCode('RELEASE')">Copy Code</button>
+			</article>
+
+			<article class="code-card">
+				<div>
+					<div class="status">ACTIVE</div>
+					<div class="code">DAILY</div>
+					<p class="reward">Reward: 1000 Coins</p>
+				</div>
+				<button onclick="copyCode('DAILY')">Copy Code</button>
+			</article>
+
+			<article class="code-card special">
+				<div>
+					<div class="status">ACTIVE</div>
+					<div class="code">MONEYDRAGON</div>
+					<p class="reward">Reward: Money Dragon Pet</p>
+				</div>
+				<button onclick="copyCode('MONEYDRAGON')">Copy Code</button>
+			</article>
+
+			<article class="code-card special">
+				<div>
+					<div class="status">ACTIVE</div>
+					<div class="code">BACKPACK</div>
+					<p class="reward">Reward: Mega Backpack Dragon Pet</p>
+				</div>
+				<button onclick="copyCode('BACKPACK')">Copy Code</button>
+			</article>
+		</section>
+
+		<h2 class="section-title">How To Redeem</h2>
+
+		<section class="how">
+			<div class="step">
+				<div class="step-number">Step 1</div>
+				<p>Open Nothing Incremental on Roblox.</p>
+			</div>
+
+			<div class="step">
+				<div class="step-number">Step 2</div>
+				<p>Click the Codes button on the left side of the screen.</p>
+			</div>
+
+			<div class="step">
+				<div class="step-number">Step 3</div>
+				<p>Paste your code and press Redeem to claim the reward.</p>
+			</div>
+		</section>
+
+		<p class="footer">
+			This page is fan/game info for Nothing Incremental. Codes can expire or change after updates.
+		</p>
+	</main>
+
+	<div id="toast" class="toast">Code copied</div>
+
+	<script>
+		function copyCode(code) {
+			navigator.clipboard.writeText(code).then(function () {
+				showToast(code + " copied");
+			}).catch(function () {
+				showToast("Copy failed");
+			});
+		}
+
+		function showToast(message) {
+			const toast = document.getElementById("toast");
+			toast.textContent = message;
+			toast.classList.add("show");
+
+			setTimeout(function () {
+				toast.classList.remove("show");
+			}, 1600);
+		}
+	</script>
+</body>
+</html>
